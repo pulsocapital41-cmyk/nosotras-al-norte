@@ -2,26 +2,30 @@
 const year = new Date().getFullYear();
 ---
 
-<footer class="blog-footer">
+<footer class="blogxer-footer">
   <div class="container footer__inner">
-    <div class="footer__brand">
-      <img
-        src="/logo-nosotras.png"
-        alt="Nosotras al Norte CDMX"
-        class="footer-logo"
-        width="280"
-        height="93"
-        loading="lazy"
-      />
-      <p class="footer-tagline">
+    <!-- Col 1: Brand & Identity -->
+    <div class="footer__brand-col">
+      <a href="/" class="footer-brand-link" aria-label="Nosotras al Norte CDMX">
+        <img
+          src="/logo-horizontal.png"
+          alt="Nosotras al Norte CDMX"
+          class="footer-logo-h"
+          width="210"
+          height="52"
+          loading="lazy"
+        />
+      </a>
+      <p class="footer-mission">
         Historias, derechos y vida cotidiana.<br />
-        Un espacio de periodismo ciudadano, relatos barriales y resistencia comunitaria en el norte de la Ciudad de México.
+        Periodismo ciudadano, relatos de vida y resistencia comunitaria desde el norte de la Ciudad de México.
       </p>
     </div>
 
+    <!-- Col 2: Navigation -->
     <div class="footer__links-col">
-      <h4 class="footer-heading">Nosotras al Norte</h4>
-      <ul class="footer-links">
+      <h4 class="footer-title">Navegación</h4>
+      <ul class="footer-list">
         <li><a href="/">Portada del Blog</a></li>
         <li><a href="/#historias">Historias & Crónicas</a></li>
         <li><a href="/#manifiesto">Nuestro Manifiesto</a></li>
@@ -29,40 +33,41 @@ const year = new Date().getFullYear();
       </ul>
     </div>
 
+    <!-- Col 3: Contact / Buzón -->
     <div class="footer__contact-col">
-      <h4 class="footer-heading">Buzón de Historias</h4>
-      <p class="footer-contact-desc">
-        ¿Tienes una historia comunitaria, denuncia vecinal o iniciativa que quieras compartir?
+      <h4 class="footer-title">Buzón de Historias</h4>
+      <p class="footer-contact-text">
+        ¿Tienes una historia barrial, testimonio o iniciativa ciudadana para compartir?
       </p>
-      <a href="mailto:contacto@nosotrasalnorte.com.mx" class="footer-email-btn">
-        <span>Escríbenos al buzón</span>
-        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+      <a href="mailto:contacto@nosotrasalnorte.com.mx" class="footer-btn">
+        <span>Escríbenos al correo</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
       </a>
-      <span class="footer-email-text">contacto@nosotrasalnorte.com.mx</span>
+      <span class="footer-email-label">contacto@nosotrasalnorte.com.mx</span>
     </div>
   </div>
 
+  <!-- Bottom Bar -->
   <div class="footer__bottom">
     <div class="container footer__bottom-inner">
-      <p>© {year} <strong>Nosotras al Norte CDMX</strong>. Todos los derechos reservados. Voces libres del norte capitalino.</p>
+      <p>© {year} <strong>Nosotras al Norte CDMX</strong>. Todos los derechos reservados.</p>
       <p class="footer-credo">Historias · Derechos · Vida Cotidiana</p>
     </div>
   </div>
 </footer>
 
 <style>
-  .blog-footer {
-    background: #200E14;
-    color: #F0E3E6;
+  .blogxer-footer {
+    background: #FAF2F5;
+    border-top: 1px solid var(--color-border);
     margin-top: auto;
-    border-top: 3px solid var(--color-magenta);
     padding-top: 3.5rem;
   }
 
   .footer__inner {
     display: grid;
-    grid-template-columns: 2fr 1fr 1.5fr;
-    gap: 3rem;
+    grid-template-columns: 2fr 1fr 1.6fr;
+    gap: 3.5rem;
     padding-bottom: 3rem;
   }
 
@@ -73,96 +78,103 @@ const year = new Date().getFullYear();
     }
   }
 
-  .footer-logo {
-    max-width: 240px;
-    height: auto;
+  .footer-brand-link {
+    display: inline-block;
     margin-bottom: 1rem;
-    filter: brightness(0) invert(1);
-    opacity: 0.95;
   }
 
-  .footer-tagline {
+  .footer-logo-h {
+    height: 48px;
+    width: auto;
+    object-fit: contain;
+  }
+
+  .footer-mission {
     font-size: 0.88rem;
-    line-height: 1.6;
-    color: #CDB7BD;
-    max-width: 380px;
+    line-height: 1.65;
+    color: var(--color-text-soft);
+    max-width: 400px;
   }
 
-  .footer-heading {
-    font-size: 1.05rem;
+  .footer-title {
+    font-size: 1rem;
     font-family: var(--font-serif);
-    color: #FFFFFF;
-    margin-bottom: 1.2rem;
+    color: var(--color-wine-dark);
+    margin-bottom: 1.1rem;
     position: relative;
-    padding-bottom: 0.5rem;
+    padding-bottom: 0.4rem;
   }
 
-  .footer-heading::after {
+  .footer-title::after {
     content: '';
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 28px;
+    width: 24px;
     height: 2px;
     background: var(--color-magenta);
   }
 
-  .footer-links {
+  .footer-list {
     list-style: none;
     display: flex;
     flex-direction: column;
     gap: 0.6rem;
   }
 
-  .footer-links a {
+  .footer-list a {
     font-size: 0.88rem;
-    color: #CDB7BD;
+    color: var(--color-text-soft);
+    transition: all 140ms ease;
   }
 
-  .footer-links a:hover {
-    color: #FFFFFF;
+  .footer-list a:hover {
+    color: var(--color-magenta);
     padding-left: 4px;
   }
 
-  .footer-contact-desc {
+  .footer-contact-text {
     font-size: 0.88rem;
-    color: #CDB7BD;
-    line-height: 1.5;
+    line-height: 1.6;
+    color: var(--color-text-soft);
     margin-bottom: 1rem;
   }
 
-  .footer-email-btn {
+  .footer-btn {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
     background: var(--color-magenta);
     color: #FFFFFF;
-    font-weight: 600;
     font-size: 0.82rem;
+    font-weight: 700;
     padding: 0.6rem 1.2rem;
     border-radius: var(--radius-pill);
     margin-bottom: 0.6rem;
-    transition: background 150ms ease, transform 150ms ease;
+    box-shadow: 0 2px 8px rgba(199, 67, 104, 0.2);
+    transition: all 140ms ease;
   }
 
-  .footer-email-btn:hover {
+  .footer-btn:hover {
     background: var(--color-magenta-hover);
     transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(199, 67, 104, 0.3);
   }
 
-  .footer-email-text {
+  .footer-email-label {
     display: block;
     font-size: 0.8rem;
-    color: #E88B9E;
+    color: var(--color-wine);
     font-family: monospace;
+    font-weight: 600;
   }
 
   .footer__bottom {
-    background: #15080D;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
-    padding-block: 1.2rem;
+    background: #F3E5E9;
+    border-top: 1px solid rgba(82, 36, 47, 0.08);
+    padding-block: 1.1rem;
     font-size: 0.8rem;
-    color: #9E858B;
+    color: var(--color-muted);
   }
 
   .footer__bottom-inner {
@@ -175,6 +187,7 @@ const year = new Date().getFullYear();
 
   .footer-credo {
     font-style: italic;
-    color: var(--color-pink-accent);
+    color: var(--color-magenta);
+    font-weight: 500;
   }
 </style>

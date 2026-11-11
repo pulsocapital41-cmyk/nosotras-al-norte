@@ -1,114 +1,109 @@
 ---
 ---
 
-<header class="blog-header">
-  <!-- Main Logo Masthead -->
-  <div class="masthead">
-    <div class="container masthead__inner">
-      <a href="/" class="brand-link" aria-label="Nosotras al Norte CDMX — Inicio">
-        <img
-          src="/logo-nosotras.png"
-          alt="Nosotras al Norte CDMX — Historias, derechos y vida cotidiana"
-          class="brand-logo"
-          width="420"
-          height="140"
-          fetchpriority="high"
-        />
-      </a>
-      <p class="brand-desc">Periodismo ciudadano, relatos de vida y derechos desde el norte de la capital.</p>
-    </div>
-  </div>
+<header class="blogxer-header">
+  <div class="container header__inner">
+    <!-- Brand Logo (Compact Horizontal Lockup) -->
+    <a href="/" class="brand-link" aria-label="Nosotras al Norte CDMX — Inicio">
+      <img
+        src="/logo-horizontal.png"
+        alt="Nosotras al Norte CDMX"
+        class="brand-logo-h"
+        width="230"
+        height="57"
+        fetchpriority="high"
+      />
+    </a>
 
-  <!-- Minimalist Blog Navigation -->
-  <nav class="blog-nav" aria-label="Navegación principal">
-    <div class="container blog-nav__inner">
+    <!-- Minimalist Blog Navigation -->
+    <nav class="blog-nav" aria-label="Navegación principal">
       <ul class="nav-links">
         <li><a href="/" class="nav-item is-active">Inicio</a></li>
         <li><a href="/#historias" class="nav-item">Historias</a></li>
         <li><a href="/#manifiesto" class="nav-item">Manifiesto</a></li>
         <li><a href="/#contacto" class="nav-item">Contacto</a></li>
       </ul>
-      <div class="nav-social">
-        <a href="https://wa.me/?text=Conoce%20Nosotras%20al%20Norte%20CDMX:%20https://nosotrasalnorte.com.mx" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Compartir en WhatsApp">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-        </a>
-        <a href="/rss.xml" class="social-icon" aria-label="Canal RSS" title="Canal RSS">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>
-        </a>
-      </div>
+    </nav>
+
+    <!-- Social / Actions -->
+    <div class="header-actions">
+      <a
+        href="https://wa.me/?text=Conoce%20Nosotras%20al%20Norte%20CDMX:%20https://nosotrasalnorte.com.mx"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="action-btn"
+        title="Compartir en WhatsApp"
+        aria-label="Compartir en WhatsApp"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+      </a>
+      <a href="/rss.xml" class="action-btn" title="Canal RSS" aria-label="Canal RSS">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>
+      </a>
     </div>
-  </nav>
+  </div>
 </header>
 
 <style>
-  .blog-header {
+  .blogxer-header {
     background: #FFFFFF;
     border-bottom: 1px solid var(--color-border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(82, 36, 47, 0.04);
   }
 
-  /* Masthead */
-  .masthead {
-    padding-block: 1.8rem 1.2rem;
-    text-align: center;
-  }
-
-  .masthead__inner {
+  .header__inner {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 0.6rem;
+    justify-content: space-between;
+    height: 72px;
+    gap: 1.5rem;
   }
 
-  .brand-logo {
-    max-width: 380px;
-    height: auto;
+  .brand-link {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .brand-logo-h {
+    height: 52px;
+    width: auto;
     object-fit: contain;
     transition: transform 180ms ease;
   }
 
-  .brand-logo:hover {
-    transform: scale(1.015);
+  .brand-logo-h:hover {
+    transform: scale(1.02);
   }
 
   @media (max-width: 640px) {
-    .brand-logo {
-      max-width: 290px;
+    .brand-logo-h {
+      height: 42px;
     }
-  }
-
-  .brand-desc {
-    font-size: 0.88rem;
-    color: var(--color-muted);
-    font-style: italic;
-    letter-spacing: 0.01em;
-  }
-
-  /* Nav */
-  .blog-nav {
-    border-top: 1px solid var(--color-border);
-    background: #FFFFFF;
-  }
-
-  .blog-nav__inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 48px;
   }
 
   .nav-links {
     display: flex;
     align-items: center;
-    gap: 1.8rem;
+    gap: 2rem;
     list-style: none;
   }
 
+  @media (max-width: 768px) {
+    .nav-links {
+      gap: 1.2rem;
+    }
+  }
+
   .nav-item {
-    font-size: 0.88rem;
+    font-size: 0.92rem;
     font-weight: 600;
     color: var(--color-text-soft);
     position: relative;
-    padding-block: 0.8rem;
+    padding-block: 0.5rem;
   }
 
   .nav-item:hover,
@@ -119,34 +114,40 @@
   .nav-item.is-active::after {
     content: '';
     position: absolute;
-    bottom: 0;
+    bottom: -6px;
     left: 0;
     right: 0;
-    height: 2.5px;
+    height: 2px;
     background: var(--color-magenta);
-    border-radius: 2px 2px 0 0;
+    border-radius: 2px;
   }
 
-  .nav-social {
+  .header-actions {
     display: flex;
     align-items: center;
     gap: 0.6rem;
   }
 
-  .social-icon {
+  .action-btn {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 32px;
-    height: 32px;
+    width: 34px;
+    height: 34px;
     border-radius: 50%;
     color: var(--color-wine);
     background: var(--color-pink-soft);
     transition: all 150ms ease;
   }
 
-  .social-icon:hover {
+  .action-btn:hover {
     background: var(--color-magenta);
     color: #FFFFFF;
+  }
+
+  @media (max-width: 600px) {
+    .nav-links {
+      display: none;
+    }
   }
 </style>

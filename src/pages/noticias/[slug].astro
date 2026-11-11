@@ -59,17 +59,6 @@ const capitalizedDate = formattedDate.charAt(0).toUpperCase() + formattedDate.sl
         {data.subtitle && (
           <p class="story-subtitle">{data.subtitle}</p>
         )}
-
-        <div class="story-meta-bar">
-          <div class="story-author-block">
-            <span class="author-circle" aria-hidden="true">♀</span>
-            <div>
-              <strong class="author-name">{data.author}</strong>
-              <time datetime={new Date(data.pubDate).toISOString()} class="story-date">{capitalizedDate}</time>
-            </div>
-          </div>
-          <span class="story-readtime">{data.readTime || '4 min'} de lectura</span>
-        </div>
       </header>
 
       <!-- Featured Image -->
