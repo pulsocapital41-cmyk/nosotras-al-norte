@@ -1,0 +1,450 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const articles = await getCollection('noticias');
+  return articles.map((article) => ({
+    params: { slug: article.id.replace(/\.md$/, '') },
+    props: { article },
+  }));
+}
+
+const { article } = Astro.props;
+const { data } = article;
+const { Content } = await render(article);
+
+const allArticles = await getCollection('noticias');
+const related = allArticles
+  .filter((a) => a.id !== article.id)
+  .slice(0, 3);
+
+const formattedDate = new Intl.DateTimeFormat('es-MX', {
+  weekday: 'long',
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+  timeZone: 'America/Mexico_City',
+}).format(new Date(data.pubDate));
+
+const capitalizedDate = formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
+---
+
+<BaseLayout
+  title={`${data.title} — Nosotras al Norte CDMX`}
+  description={data.excerpt || data.subtitle || data.title}
+  image={data.image}
+  type="article"
+>
+  <article class="story-article">
+    <div class="container article-container">
+      <!-- Breadcrumb / Back link -->
+      <nav class="breadcrumb" aria-label="Volver">
+        <a href="/" class="back-link">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+          <span>Volver a las historias</span>
+        </a>
+      </nav>
+
+      <!-- Story Header -->
+      <header class="story-header">
+        <div class="story-tags-row">
+          {data.tags && data.tags.map((tag) => (
+            <span class="tag-pill">#{tag}</span>
+          ))}
+        </div>
+
+        <h1 class="story-title">{data.title}</h1>
+
+        {data.subtitle && (
+          <p class="story-subtitle">{data.subtitle}</p>
+        )}
+
+        <div class="story-meta-bar">
+          <div class="story-author-block">
+            <span class="author-circle" aria-hidden="true">♀</span>
+            <div>
+              <strong class="author-name">{data.author}</strong>
+              <time datetime={new Date(data.pubDate).toISOString()} class="story-date">{capitalizedDate}</time>
+            </div>
+          </div>
+          <span class="story-readtime">{data.readTime || '4 min'} de lectura</span>
+        </div>
+      </header>
+
+      <!-- Featured Image -->
+      <div class="featured-media">
+        <img
+          src={data.image}
+          alt={data.imageCaption || data.title}
+          class="story-img"
+          fetchpriority="high"
+          loading="eager"
+        />
+        {data.imageCaption && (
+          <figcaption class="story-caption">{data.imageCaption}</figcaption>
+        )}
+      </div>
+
+      <!-- Story Content Body -->
+      <div class="story-body">
+        <Content />
+      </div>
+
+      <!-- Share Box -->
+      <div class="share-box">
+        <span class="share-label">Comparte esta historia:</span>
+        <div class="share-buttons">
+          <a
+            id="share-wa"
+            href={`https://wa.me/?text=${encodeURIComponent(data.title + ' ' + Astro.url.href)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="share-btn share-wa"
+          >
+            WhatsApp
+          </a>
+          <a
+            id="share-x"
+            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(data.title)}&url=${encodeURIComponent(Astro.url.href)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="share-btn share-x"
+          >
+            X / Twitter
+          </a>
+          <button type="button" id="copy-btn" class="share-btn share-copy">
+            Copiar enlace
+          </button>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- Related Stories -->
+  {related.length > 0 && (
+    <section class="related-section">
+      <div class="container">
+        <h3 class="related-title">Más historias del norte de la capital</h3>
+        <div class="related-grid">
+          {related.map((rel) => {
+            const relSlug = rel.id.replace(/\.md$/, '');
+            return (
+              <a href={`/noticias/${relSlug}`} class="related-card">
+                <div class="related-media">
+                  <img src={rel.data.image} alt={rel.data.title} loading="lazy" />
+                </div>
+                <div class="related-info">
+                  <h4 class="related-card-title">{rel.data.title}</h4>
+                  <span class="related-date">
+                    {new Intl.DateTimeFormat('es-MX', { day: 'numeric', month: 'short', year: 'numeric' }).format(new Date(rel.data.pubDate))}
+                  </span>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  )}
+</BaseLayout>
+
+<script is:inline>
+  document.getElementById('copy-btn')?.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      const btn = document.getElementById('copy-btn');
+      const prev = btn.textContent;
+      btn.textContent = '¡Enlace copiado!';
+      setTimeout(() => { btn.textContent = prev; }, 2000);
+    } catch (e) {}
+  });
+</script>
+
+<style>
+  .story-article {
+    padding-block: 2rem 4rem;
+  }
+
+  .article-container {
+    max-width: 820px;
+  }
+
+  .breadcrumb {
+    margin-bottom: 1.5rem;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-muted);
+  }
+
+  .back-link:hover {
+    color: var(--color-magenta);
+  }
+
+  .story-tags-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .story-title {
+    font-size: 2.6rem;
+    font-family: var(--font-serif);
+    color: var(--color-wine-dark);
+    line-height: 1.2;
+    margin-bottom: 1.2rem;
+  }
+
+  @media (max-width: 640px) {
+    .story-title {
+      font-size: 1.85rem;
+    }
+  }
+
+  .story-subtitle {
+    font-size: 1.2rem;
+    line-height: 1.55;
+    color: var(--color-text-soft);
+    font-style: italic;
+    margin-bottom: 1.8rem;
+  }
+
+  .story-meta-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-block: 1rem;
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    margin-bottom: 2rem;
+  }
+
+  .story-author-block {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .author-circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--color-pink-soft);
+    color: var(--color-magenta);
+    font-weight: bold;
+    font-size: 1.1rem;
+  }
+
+  .author-name {
+    display: block;
+    font-size: 0.88rem;
+    color: var(--color-wine);
+  }
+
+  .story-date {
+    font-size: 0.78rem;
+    color: var(--color-muted);
+  }
+
+  .story-readtime {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--color-magenta);
+  }
+
+  /* Media */
+  .featured-media {
+    margin-bottom: 2.5rem;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+
+  .story-img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+
+  .story-caption {
+    font-size: 0.8rem;
+    color: var(--color-muted);
+    font-style: italic;
+    padding: 0.5rem 0.2rem;
+  }
+
+  /* Story Body (Editorial Typography) */
+  .story-body {
+    font-size: 1.12rem;
+    line-height: 1.8;
+    color: #2D1D23;
+  }
+
+  .story-body :global(p) {
+    margin-bottom: 1.5rem;
+  }
+
+  .story-body :global(h2) {
+    font-size: 1.7rem;
+    margin-top: 2.2rem;
+    margin-bottom: 1rem;
+    color: var(--color-wine);
+  }
+
+  .story-body :global(h3) {
+    font-size: 1.35rem;
+    margin-top: 1.8rem;
+    margin-bottom: 0.8rem;
+    color: var(--color-wine);
+  }
+
+  .story-body :global(blockquote) {
+    border-left: 4px solid var(--color-magenta);
+    background: var(--color-pink-soft);
+    padding: 1.2rem 1.6rem;
+    margin: 2rem 0;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    font-style: italic;
+    color: var(--color-wine-dark);
+  }
+
+  .story-body :global(ul), .story-body :global(ol) {
+    margin-bottom: 1.5rem;
+    padding-left: 1.8rem;
+  }
+
+  .story-body :global(li) {
+    margin-bottom: 0.5rem;
+  }
+
+  /* Share Box */
+  .share-box {
+    margin-top: 3.5rem;
+    padding: 1.8rem;
+    background: #FFFFFF;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .share-label {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--color-wine);
+  }
+
+  .share-buttons {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+
+  .share-btn {
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-pill);
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 140ms ease;
+  }
+
+  .share-wa {
+    background: #25D366;
+    color: #FFFFFF;
+  }
+
+  .share-wa:hover {
+    background: #1EBE5D;
+  }
+
+  .share-x {
+    background: #000000;
+    color: #FFFFFF;
+  }
+
+  .share-x:hover {
+    background: #333333;
+  }
+
+  .share-copy {
+    background: var(--color-pink-soft);
+    color: var(--color-wine);
+    border: 1px solid var(--color-border);
+  }
+
+  .share-copy:hover {
+    background: var(--color-magenta);
+    color: #FFFFFF;
+  }
+
+  /* Related */
+  .related-section {
+    background: #FFFFFF;
+    border-top: 1px solid var(--color-border);
+    padding-block: 3.5rem;
+  }
+
+  .related-title {
+    font-size: 1.6rem;
+    margin-bottom: 1.8rem;
+    text-align: center;
+  }
+
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .related-card {
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    transition: transform 160ms ease;
+  }
+
+  .related-card:hover {
+    transform: translateY(-3px);
+  }
+
+  .related-media img {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+  }
+
+  .related-info {
+    padding: 1rem;
+  }
+
+  .related-card-title {
+    font-size: 1rem;
+    font-family: var(--font-serif);
+    line-height: 1.35;
+    color: var(--color-wine-dark);
+    margin-bottom: 0.4rem;
+  }
+
+  .related-date {
+    font-size: 0.75rem;
+    color: var(--color-muted);
+  }
+</style>

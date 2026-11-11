@@ -1,0 +1,180 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="blog-footer">
+  <div class="container footer__inner">
+    <div class="footer__brand">
+      <img
+        src="/logo-nosotras.png"
+        alt="Nosotras al Norte CDMX"
+        class="footer-logo"
+        width="280"
+        height="93"
+        loading="lazy"
+      />
+      <p class="footer-tagline">
+        Historias, derechos y vida cotidiana.<br />
+        Un espacio de periodismo ciudadano, relatos barriales y resistencia comunitaria en el norte de la Ciudad de México.
+      </p>
+    </div>
+
+    <div class="footer__links-col">
+      <h4 class="footer-heading">Nosotras al Norte</h4>
+      <ul class="footer-links">
+        <li><a href="/">Portada del Blog</a></li>
+        <li><a href="/#historias">Historias & Crónicas</a></li>
+        <li><a href="/#manifiesto">Nuestro Manifiesto</a></li>
+        <li><a href="/rss.xml">Canal RSS</a></li>
+      </ul>
+    </div>
+
+    <div class="footer__contact-col">
+      <h4 class="footer-heading">Buzón de Historias</h4>
+      <p class="footer-contact-desc">
+        ¿Tienes una historia comunitaria, denuncia vecinal o iniciativa que quieras compartir?
+      </p>
+      <a href="mailto:contacto@nosotrasalnorte.com.mx" class="footer-email-btn">
+        <span>Escríbenos al buzón</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+      </a>
+      <span class="footer-email-text">contacto@nosotrasalnorte.com.mx</span>
+    </div>
+  </div>
+
+  <div class="footer__bottom">
+    <div class="container footer__bottom-inner">
+      <p>© {year} <strong>Nosotras al Norte CDMX</strong>. Todos los derechos reservados. Voces libres del norte capitalino.</p>
+      <p class="footer-credo">Historias · Derechos · Vida Cotidiana</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .blog-footer {
+    background: #200E14;
+    color: #F0E3E6;
+    margin-top: auto;
+    border-top: 3px solid var(--color-magenta);
+    padding-top: 3.5rem;
+  }
+
+  .footer__inner {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1.5fr;
+    gap: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  @media (max-width: 860px) {
+    .footer__inner {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+
+  .footer-logo {
+    max-width: 240px;
+    height: auto;
+    margin-bottom: 1rem;
+    filter: brightness(0) invert(1);
+    opacity: 0.95;
+  }
+
+  .footer-tagline {
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: #CDB7BD;
+    max-width: 380px;
+  }
+
+  .footer-heading {
+    font-size: 1.05rem;
+    font-family: var(--font-serif);
+    color: #FFFFFF;
+    margin-bottom: 1.2rem;
+    position: relative;
+    padding-bottom: 0.5rem;
+  }
+
+  .footer-heading::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 28px;
+    height: 2px;
+    background: var(--color-magenta);
+  }
+
+  .footer-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .footer-links a {
+    font-size: 0.88rem;
+    color: #CDB7BD;
+  }
+
+  .footer-links a:hover {
+    color: #FFFFFF;
+    padding-left: 4px;
+  }
+
+  .footer-contact-desc {
+    font-size: 0.88rem;
+    color: #CDB7BD;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+  }
+
+  .footer-email-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--color-magenta);
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 0.82rem;
+    padding: 0.6rem 1.2rem;
+    border-radius: var(--radius-pill);
+    margin-bottom: 0.6rem;
+    transition: background 150ms ease, transform 150ms ease;
+  }
+
+  .footer-email-btn:hover {
+    background: var(--color-magenta-hover);
+    transform: translateY(-1px);
+  }
+
+  .footer-email-text {
+    display: block;
+    font-size: 0.8rem;
+    color: #E88B9E;
+    font-family: monospace;
+  }
+
+  .footer__bottom {
+    background: #15080D;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding-block: 1.2rem;
+    font-size: 0.8rem;
+    color: #9E858B;
+  }
+
+  .footer__bottom-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .footer-credo {
+    font-style: italic;
+    color: var(--color-pink-accent);
+  }
+</style>

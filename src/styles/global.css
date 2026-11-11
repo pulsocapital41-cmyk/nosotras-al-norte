@@ -1,0 +1,99 @@
+:root {
+  --color-wine: #52242F;
+  --color-wine-dark: #38141E;
+  --color-wine-light: #6E3240;
+  --color-magenta: #C74368;
+  --color-magenta-hover: #AB3456;
+  --color-pink-soft: #F9EBEF;
+  --color-pink-accent: #E88B9E;
+  --color-bg: #FCF8F9;
+  --color-card-bg: #FFFFFF;
+  --color-text: #2C1E23;
+  --color-text-soft: #5C474E;
+  --color-muted: #826E75;
+  --color-border: #EFE4E7;
+  --color-border-subtle: #F6EFF1;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --shadow-sm: 0 1px 3px rgba(82, 36, 47, 0.05);
+  --shadow-md: 0 4px 16px rgba(82, 36, 47, 0.08);
+  --shadow-lg: 0 12px 32px rgba(82, 36, 47, 0.12);
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-pill: 9999px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: var(--font-sans);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 140ms ease, opacity 140ms ease;
+}
+
+.container {
+  width: 100%;
+  max-width: 1180px;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding-inline: 1rem;
+  }
+}
+
+/* Tag Pill */
+.tag-pill {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-pill);
+  background: var(--color-pink-soft);
+  color: var(--color-magenta);
+  transition: background 140ms ease, color 140ms ease;
+}
+
+.tag-pill:hover {
+  background: var(--color-magenta);
+  color: #FFFFFF;
+}
+
+/* Typography elements */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+  color: var(--color-wine-dark);
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+}
