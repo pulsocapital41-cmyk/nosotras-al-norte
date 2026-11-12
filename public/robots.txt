@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://nosotrasalnorte.com.mx/sitemap.xml
+Sitemap: https://nosotrasalnorte.com.mx/sitemap-index.xml

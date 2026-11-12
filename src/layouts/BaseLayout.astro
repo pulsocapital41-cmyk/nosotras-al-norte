@@ -8,6 +8,8 @@ interface Props {
   description?: string;
   image?: string;
   type?: 'website' | 'article';
+  pubDate?: Date | string;
+  author?: string;
 }
 
 const {
@@ -15,9 +17,51 @@ const {
   description = 'Periodismo ciudadano, relatos barriales, derechos de las mujeres y vida comunitaria en el norte de la Ciudad de México.',
   image = '/logo-nosotras.png',
   type = 'website',
+  pubDate,
+  author = 'Redacción Nosotras al Norte',
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://nosotrasalnorte.com.mx');
+
+const siteUrl = 'https://nosotrasalnorte.com.mx';
+
+const jsonLd = type === 'article'
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'NewsArticle',
+      mainEntityOfPage: {
+        '@type': 'WebPage',
+        '@id': canonicalURL.toString(),
+      },
+      headline: title,
+      description: description,
+      image: [image.startsWith('http') ? image : new URL(image, siteUrl).toString()],
+      datePublished: pubDate ? new Date(pubDate).toISOString() : new Date().toISOString(),
+      dateModified: pubDate ? new Date(pubDate).toISOString() : new Date().toISOString(),
+      author: [
+        {
+          '@type': 'Person',
+          name: author,
+        },
+      ],
+      publisher: {
+        '@type': 'NewsMediaOrganization',
+        name: 'Nosotras al Norte CDMX',
+        url: siteUrl,
+        logo: {
+          '@type': 'ImageObject',
+          url: `${siteUrl}/logo-horizontal.png`,
+        },
+      },
+    }
+  : {
+      '@context': 'https://schema.org',
+      '@type': 'NewsMediaOrganization',
+      name: 'Nosotras al Norte CDMX',
+      url: siteUrl,
+      logo: `${siteUrl}/logo-horizontal.png`,
+      description: description,
+    };
 ---
 
 <!doctype html>
@@ -57,6 +101,14 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://nosotras
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
+  
+    <!-- Search Engine & Google News Directives -->
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
   </head>
   <body>
     <Header />
