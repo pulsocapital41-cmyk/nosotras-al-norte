@@ -5,7 +5,7 @@ excerpt: "En las pendientes de la Gustavo A. Madero, mujeres organizadas cosecha
 category: "Vida Cotidiana"
 author: "Redacción Nosotras al Norte"
 pubDate: 2026-11-07T11:00:00.000Z
-image: "https://images.unsplash.com/photo-1592417817098-8f3d69109853?auto=format&fit=crop&w=1200&q=80"
+image: "https://images.unsplash.com/photo-1595974482597-4b8da8879bc5?auto=format&fit=crop&w=1200&q=80"
 imageCaption: "Huerto urbano colectivo en las faldas de la Sierra de Guadalupe."
 featured: false
 breaking: false
